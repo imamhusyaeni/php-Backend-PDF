@@ -105,12 +105,12 @@ class OrderController extends Controller
         $value = $request->search;
         if ($request->has('search')) {
             if ($value == null) {
-                $orders = Order::orderby('date', 'desc')->where('email', $email)->paginate(4);
+                $orders = Order::orderby('date', 'desc')->where('email', $email)->paginate(20);
             }else {
-                $orders = Order::where('order_no','LIKE','%'.$request->search.'%')->where('email', $email)->paginate(4);
+                $orders = Order::where('order_no','LIKE','%'.$request->search.'%')->where('email', $email)->paginate(20);
             }
         }else {
-            $orders = Order::orderby('date', 'desc')->where('email', $email)->paginate(4);
+            $orders = Order::orderby('date', 'desc')->where('email', $email)->paginate(20);
         }
         $count = count(Order::where('status', 'pay now')->where('email', $email)->get());
         return view('member.order-history', compact('orders','count'));
